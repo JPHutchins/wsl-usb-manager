@@ -73,6 +73,15 @@ pub fn show_usbipd_untested_version_warning() {
     });
 }
 
+pub fn show_settings_error(error: &str) {
+    nwg::message(&nwg::MessageParams {
+        title: "WSL USB Manager: Settings Error",
+        content: &format!("Failed to initialize the application settings.\n\nError:\n{error}"),
+        buttons: nwg::MessageButtons::Ok,
+        icons: nwg::MessageIcons::Error,
+    });
+}
+
 /// Shows an error message telling the user that the app failed to start.
 /// The passed message should contain details about the error that occurred.
 ///

@@ -20,7 +20,9 @@ fn main() -> ExitCode {
         Err(code) => return code,
     };
 
-    let _settings_location = settings::ensure_settings_dir();
+    let _ = settings::ensure_settings_dir()
+        .and_then(|path| settings::write_persistent_example(&path))
+        .map_err(|err| gui::show_settings_error(&err.to_string()));
 
     // Ensure that only one instance of the application is running
     if !win_utils::acquire_single_instance_lock() {
